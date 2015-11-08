@@ -1,0 +1,11 @@
+- hosts: 127.0.0.1
+
+  tasks:
+    - shell: yum install -y httpd
+
+    - name: index.html
+      template: 
+         src: index.j2 
+         dest: /var/www/html/index.html
+         group: apache
+         mode: 0644

@@ -29,3 +29,13 @@ RUN /usr/local/bin/easy_install-2.7 pip
 
 # Install Ansible
 RUN pip install ansible
+
+# Add playbooks to the Docker image
+ADD ansible /tmp/ansible/
+WORKDIR /tmp/ansible
+
+# Run Ansible to configure the Docker image
+RUN ansible-playbook site.yml --connection=local -i /dev/null
+
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/apachectl", "-DFOREGROUND"]
